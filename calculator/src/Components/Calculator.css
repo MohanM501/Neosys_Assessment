@@ -1,4 +1,4 @@
-.heading{
+#container{
     text-align: center;
 }
 #parent{
@@ -17,4 +17,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#history{
+    display: block;
+}
+#hide{
+    display: none;
 }
