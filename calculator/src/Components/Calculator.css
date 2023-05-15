@@ -2,6 +2,7 @@
     text-align: center;
 }
 #parent{
+    padding-top: 40px;
     width:50%;
     margin: auto;
     display: grid;
@@ -24,4 +25,18 @@
 }
 #hide{
     display: none;
+}
+
+@media (max-width:600px) {
+    .entity{
+        width:20px;
+        height: 20px;
+    }
+}
+
+@media (min-width:601px) and (max-width:1100px) {
+    .entity{
+        width:30px;
+        height: 30px;
+    }
 }

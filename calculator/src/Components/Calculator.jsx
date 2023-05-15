@@ -3,18 +3,27 @@ import { useState } from 'react';
 import "./Calculator.css";
 
 const Calculator = () => {
+ // This is to maintain the state of history;
   let [history,setHistory]=useState("");
   let [total1,setTotal1]=useState(0);
+  // This is to maintain the show/hide status of the user's expression history 
   let [show,setShow]=useState(false);
+
+  // This arr is used to loop through ;
   let arr=["C","+/-","%","/",7,8,9,"x",4,5,6,"-",1,2,3,"+",0,".","="];
 
-  // handleCalucalation
+
+  // handleCalucalation function- This function is used to calculate the total value of expressions pressed by user;
+  
   const handleCalculation=(history_string)=>{
-    console.log(history_string,"his string");
+    
+    // here symbols and numbers are separeted 
+
     let symbols=[]; let numbers=[]; let round="";
     for(let i=0;i<history_string.length;i++){
         let num=+(history_string[i]);
-        if(num){
+        // If it is number or "." means it will push to numbers array; else to symbols array;
+        if(num || history_string[i]==="."){
             round+=history_string[i]; 
         }else{
             numbers.push(Number(round));
@@ -23,8 +32,12 @@ const Calculator = () => {
         }
     }
     numbers.push(Number(round));
-    console.log(symbols,numbers,"symbols numbers");
+    
+    // Initial value of total;
     let total=numbers[0];
+
+    // here totals are calculated based on the symbols by looping through the symbols array;
+
     for (let i=0;i<symbols.length;i++){
         switch(symbols[i]){
             case "+":
@@ -47,7 +60,7 @@ const Calculator = () => {
                 break;
         }
     }
-    console.log(total,"total");
+    
     setTotal1(total)
   }
 
@@ -58,10 +71,21 @@ const Calculator = () => {
     let selected=e.target.innerText;
     
     setHistory(history+selected);
-    console.log(history,"history");
+    // Whenever user clicks on "=" it will call handleCalculation function to perform total ;
     if(selected==="="){
-        handleCalculation(history)
+        let last=+(history[history.length-1]);
+        // If the last expression is symbol means it will throw alert and resets everything;
+        if(!last){
+            setHistory("");
+            setTotal1(0);
+            alert("last expression should be a number");
+        }else{
+            // calls the handleCalculation function
+            handleCalculation(history)
+        }
+        
     }else if(selected==="C"){
+        // if user clicks "C" means it will clear everything
         setHistory("");
         setTotal1(0);
     }
